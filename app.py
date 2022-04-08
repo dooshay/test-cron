@@ -5,11 +5,10 @@ from date_utils import get_date, myanmar_timezone
 import time
 
 # logger = logging.getLogger(__name__)
-count = 0
+
 
 # logging.basicConfig()
 # logging.getLogger('apscheduler').setLevel(logging.DEBUG)
-
 
 def tick():
     print('Tick! The time is: %s', get_date().get('datetime'))
@@ -21,6 +20,8 @@ def tick():
 
 
 if __name__ == '__main__':
+
+  count = 0
 
   sched = BlockingScheduler(timezone=myanmar_timezone)
 

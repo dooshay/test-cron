@@ -12,7 +12,7 @@ import time
 
 def tick():
   global count
-  print('Tick! The time is: %s', get_date().get('datetime'))
+  print('Tick! The time is: %s' % get_date().get('datetime'))
   time.sleep(2)
   count += 1
   if count == 5:

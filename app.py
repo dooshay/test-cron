@@ -1,17 +1,29 @@
-from datetime import datetime
-from pytz import timezone
+from datetime import timedelta
+from apscheduler.schedulers.background import BackgroundScheduler
+from date_utils import get_date, myanmar_timezone
+import logging
 
-myanmar_timezone = 'Asia/Yangon'
+count = 0
 
-def get_cur_datetime():
-    return datetime.now(timezone(myanmar_timezone))
+logging.basicConfig()
+logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 
-def format_datetime24(now: datetime):
-    return now.strftime('%Y-%m-%d %H:%M:%S')
+sched = BackgroundScheduler(timezone=myanmar_timezone)
 
-def format_datetime(now: datetime):
-    return now.strftime('%Y-%m-%d %I:%M:%S')
-
+def tick():
+    print('Tick! The time is: %s' % get_date().get('datetime'))
+    count += 1
+    if count == 5:
+      sched.remove_job('my_job')
+      sched.shutdown()
 
 if __name__ == '__main__':
-  print('Tick the time is', format_datetime(get_cur_datetime()))
+  
+  # now = get_date().get('date') + timedelta(seconds=5)
+
+  sched.add_job(tick, 'interval', seconds=5, id='my_job')
+
+  try:
+    sched.start()
+  except (KeyboardInterrupt, SystemExit):
+    pass

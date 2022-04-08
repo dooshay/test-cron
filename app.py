@@ -8,9 +8,9 @@ import os
 
 def my_listener(event):
     if event.exception:
-        print('The job crashed :(')
+        print('The job crashed :(', flush=True)
     else:
-        print('The job worked :)')
+        print('The job worked :)', flush=True)
 
 
 logging.basicConfig()
@@ -18,7 +18,7 @@ logging.getLogger('apscheduler').setLevel(logging.CRITICAL)
 
 def tick():
   global count
-  print('Tick! The time is: %s' % get_date().get('datetime'), flush=True)
+  print('Tick! The time is: %s' % get_date().get('datetime'))
   time.sleep(2)
   count += 1
   if count == 5:

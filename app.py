@@ -4,7 +4,7 @@ from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 from date_utils import get_date, myanmar_timezone
 import logging
 import time
-import os
+# import os
 
 def my_listener(event):
     if event.exception:
@@ -18,12 +18,12 @@ logging.getLogger('apscheduler').setLevel(logging.CRITICAL)
 
 def tick():
   global count
-  print('Tick! The time is: %s' % get_date().get('datetime'))
+  print('Tick! The time is: %s' % get_date().get('datetime'), flush=True)
   time.sleep(2)
   count += 1
   if count == 5:
     sched.remove_job('my_job')
-    os._exit(0)
+    # os._exit(0)
 
 
 if __name__ == '__main__':

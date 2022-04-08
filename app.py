@@ -1,14 +1,20 @@
 # from datetime import timedelta
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 from date_utils import get_date, myanmar_timezone
-# import logging
+import logging
 import time
+import sys
 
-# logger = logging.getLogger(__name__)
+def my_listener(event):
+    if event.exception:
+        print('The job crashed :(')
+    else:
+        print('The job worked :)')
 
 
-# logging.basicConfig()
-# logging.getLogger('apscheduler').setLevel(logging.DEBUG)
+logging.basicConfig()
+logging.getLogger('apscheduler').setLevel(logging.CRITICAL)
 
 def tick():
   global count
@@ -16,14 +22,16 @@ def tick():
   time.sleep(2)
   count += 1
   if count == 5:
-    sched.remove_job('my_job')
-    sched.shutdown()
+    sched.remove_all_jobs()
+    sys.exit()
 
 
 if __name__ == '__main__':
   count = 0
 
-  sched = BackgroundScheduler(timezone=myanmar_timezone, daemon=False)
+  sched = BlockingScheduler(timezone=myanmar_timezone)
+
+  sched.add_listener(my_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 
   sched.add_job(tick, 'interval', seconds=5, id='my_job', timezone=myanmar_timezone)
 

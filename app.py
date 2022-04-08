@@ -4,15 +4,15 @@ from date_utils import get_date, myanmar_timezone
 import logging
 import time
 
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
 count = 0
 
-logging.basicConfig()
+# logging.basicConfig()
 logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 
 
 def tick():
-    logger.info('Tick! The time is: %s', get_date().get('datetime'))
+    print('Tick! The time is: %s', get_date().get('datetime'))
     time.sleep(2)
     count += 1
     if count == 5:
@@ -29,4 +29,4 @@ if __name__ == '__main__':
   try:
     sched.start()
   except (KeyboardInterrupt, SystemExit):
-    logger.exception('Something went wrong.')
+    print('Something went wrong.')

@@ -4,16 +4,15 @@ from date_utils import get_date, myanmar_timezone
 import logging
 import time
 
-
+logger = logging.getLogger(__name__)
 count = 0
 
 logging.basicConfig()
-logger = logging.getLogger('apscheduler')
-logger.setLevel(logging.DEBUG)
+logging.getLogger('apscheduler').setLevel(logging.DEBUG)
+
 
 def tick():
     logger.info('Tick! The time is: %s' % get_date().get('datetime'))
-    logger.debug('Tick! The time is: %s' % get_date().get('datetime'))
     time.sleep(2)
     count += 1
     if count == 5:

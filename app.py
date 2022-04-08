@@ -1,14 +1,14 @@
 from datetime import timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 from date_utils import get_date, myanmar_timezone
-import logging
+# import logging
 import time
 
 # logger = logging.getLogger(__name__)
 count = 0
 
 # logging.basicConfig()
-logging.getLogger('apscheduler').setLevel(logging.DEBUG)
+# logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 
 
 def tick():

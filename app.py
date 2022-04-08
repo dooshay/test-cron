@@ -12,7 +12,7 @@ logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 
 
 def tick():
-    logger.info('Tick! The time is: %s' % get_date().get('datetime'))
+    logger.info('Tick! The time is: %s', get_date().get('datetime'))
     time.sleep(2)
     count += 1
     if count == 5:

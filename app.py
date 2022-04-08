@@ -21,7 +21,7 @@ if __name__ == '__main__':
   
   # now = get_date().get('date') + timedelta(seconds=5)
 
-  sched.add_job(tick, 'interval', seconds=5, id='my_job')
+  sched.add_job(tick, 'interval', seconds=5, id='my_job', timezone=myanmar_timezone)
 
   try:
     sched.start()

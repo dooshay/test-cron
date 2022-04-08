@@ -11,6 +11,7 @@ import time
 # logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 
 def tick():
+  global count
   print('Tick! The time is: %s', get_date().get('datetime'))
   time.sleep(2)
   count += 1
@@ -19,13 +20,14 @@ def tick():
     sched.shutdown()
 
 
-count = 0
+if __name__ == '__main__':
+  count = 0
 
-sched = BlockingScheduler(timezone=myanmar_timezone)
+  sched = BlockingScheduler(timezone=myanmar_timezone)
 
-sched.add_job(tick, 'interval', seconds=5, id='my_job', timezone=myanmar_timezone)
+  sched.add_job(tick, 'interval', seconds=5, id='my_job', timezone=myanmar_timezone)
 
-try:
-  sched.start()
-except (KeyboardInterrupt, SystemExit):
-  print('Something went wrong.')
+  try:
+    sched.start()
+  except (KeyboardInterrupt, SystemExit):
+    print('Something went wrong.')

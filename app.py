@@ -23,7 +23,7 @@ def tick():
 if __name__ == '__main__':
   count = 0
 
-  sched = BackgroundScheduler(timezone=myanmar_timezone)
+  sched = BackgroundScheduler(timezone=myanmar_timezone, daemon=False)
 
   sched.add_job(tick, 'interval', seconds=5, id='my_job', timezone=myanmar_timezone)
 
